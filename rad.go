@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/dlsniper/misc/radix"
+	"github.com/dlsniper/misc/sort/radix"
 )
 
 func main() {
