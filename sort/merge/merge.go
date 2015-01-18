@@ -6,7 +6,7 @@ func MergeSort(array []int) []int {
 	return array
 }
 
-func mergeSort(array *[]int, low, high int){
+func mergeSort(array *[]int, low, high int) {
 	if low < high {
 		middle := (low + high) / 2
 
@@ -16,7 +16,7 @@ func mergeSort(array *[]int, low, high int){
 	}
 }
 
-func merge(array *[]int, low, middle, high int){
+func merge(array *[]int, low, middle, high int) {
 	helper := map[int]int{}
 	for i := low; i <= high; i++ {
 		helper[i] = (*array)[i]
