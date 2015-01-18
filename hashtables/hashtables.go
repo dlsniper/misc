@@ -3,7 +3,7 @@ package hashtables
 import "fmt"
 
 type (
-	HashTable interface {
+	Hashtable interface {
 		hash(key int) int
 		Insert(key int, value string)
 		Find(key int) (int, string)
@@ -15,23 +15,23 @@ type (
 		val string
 	}
 
-	Hashtable struct {
+	MyHashtable struct {
 		noBuckets int
 		table     map[int][]kv
 	}
 )
 
-func (ht *Hashtable) Hash(key int) int {
+func (ht *MyHashtable) hash(key int) int {
 	return key % ht.noBuckets
 }
 
-func (ht *Hashtable) Insert(key int, value string) {
-	code := ht.Hash(key)
+func (ht *MyHashtable) Insert(key int, value string) {
+	code := ht.hash(key)
 	ht.table[code] = append(ht.table[code], kv{key: key, val: value})
 }
 
-func (ht *Hashtable) Find(key int) (int, string) {
-	code := ht.Hash(key)
+func (ht *MyHashtable) Find(key int) (int, string) {
+	code := ht.hash(key)
 
 	for _, pair := range ht.table[code] {
 		if pair.key == key {
@@ -42,8 +42,8 @@ func (ht *Hashtable) Find(key int) (int, string) {
 	return -1, ""
 }
 
-func (ht *Hashtable) Delete(key int) {
-	code := ht.Hash(key)
+func (ht *MyHashtable) Delete(key int) {
+	code := ht.hash(key)
 
 	for k, pair := range ht.table[code] {
 		if pair.key == key {
@@ -53,7 +53,7 @@ func (ht *Hashtable) Delete(key int) {
 	}
 }
 
-func (ht *Hashtable) String() string {
+func (ht *MyHashtable) String() string {
 	result := ""
 
 	for key, list := range ht.table {
@@ -65,8 +65,8 @@ func (ht *Hashtable) String() string {
 	return result
 }
 
-func NewHashtable(noBuckets int) *Hashtable {
-	hashtable := &Hashtable{
+func NewHashtable(noBuckets int) Hashtable {
+	hashtable := &MyHashtable{
 		noBuckets: noBuckets,
 		table:     make(map[int][]kv, noBuckets),
 	}
