@@ -17,5 +17,6 @@ func main() {
 	bst.Insert(10)
 	bst.Insert(15)
 	bst.Insert(12)
-	fmt.Printf("Binary search tree: %s\n", bst)
+	fmt.Printf("Binary search tree DFT in-order: %s\n", bst)
+	fmt.Printf("Binary search tree BFT in-order: %s\n", bst.BFT())
 }

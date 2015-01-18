@@ -1,16 +1,20 @@
 package bst
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/dlsniper/misc/queue"
+)
 
 type (
 	BinarySearchTree interface {
-		Insert(value uint32)
-		Find(value uint32) bool
+		Insert(value int)
+		Find(value int) bool
 	}
 
 	Node struct {
 		left  *Node
-		value uint32
+		value int
 		right *Node
 	}
 
@@ -19,7 +23,7 @@ type (
 	}
 )
 
-func (bst *BST) Insert(value uint32) {
+func (bst *BST) Insert(value int) {
 	if bst.tree == nil {
 		bst.tree = &Node{value: value}
 		return
@@ -34,7 +38,7 @@ func (bst *BST) Insert(value uint32) {
 	}
 }
 
-func (bst *BST) find(value uint32) *Node {
+func (bst *BST) find(value int) *Node {
 	node := bst.tree
 	parentNode := node
 	for node != nil {
@@ -51,8 +55,35 @@ func (bst *BST) find(value uint32) *Node {
 	return parentNode
 }
 
-func (bst *BST) Find(value uint32) bool {
+func (bst *BST) Find(value int) bool {
 	return bst.find(value).value != value
+}
+
+func (bst *BST) BFT() string {
+	result := ""
+
+	levelNodes := queue.NewQueue()
+
+	levelNodes.Enqueue(bst.tree)
+	for levelNodes.Size() > 0 {
+		elem, err := levelNodes.Dequeue()
+		if err != nil {
+			break
+		}
+		node := elem.(*Node)
+
+		if node.left != nil {
+			levelNodes.Enqueue(node.left)
+		}
+
+		if node.right != nil {
+			levelNodes.Enqueue(node.right)
+		}
+
+		result += fmt.Sprintf("%v ", node.value)
+	}
+
+	return result
 }
 
 func (bst *BST) String() string {
@@ -65,7 +96,7 @@ func (bst *BST) String() string {
 			dft(node.left)
 
 		}
-		result += fmt.Sprintf("%d ", node.value)
+		result += fmt.Sprintf("%v ", node.value)
 		if node.right != nil {
 			dft(node.right)
 		}
