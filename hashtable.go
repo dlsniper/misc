@@ -16,8 +16,9 @@ func main() {
 	demo.Insert(6, "demo6")
 	demo.Insert(12, "demo7")
 
-	fmt.Printf("%s\n", demo)
+	fmt.Printf("Hashtable:\n%s\n", demo)
 
+	fmt.Printf("Find example:\n")
 	for _, key := range []int{6, 10} {
 		k, v := demo.Find(key)
 		fmt.Printf("%d\t-> %d\t%q\n", key, k, v)
